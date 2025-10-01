@@ -1,10 +1,18 @@
+// loads variables from .env into process.env
+require('dotenv').config();
+
 // insert_books.js - Script to populate MongoDB with sample book data
 
 // Import MongoDB client
 const { MongoClient } = require('mongodb');
 
 // Connection URI (replace with your MongoDB connection string if using Atlas)
-const uri = 'mongodb://localhost:27017';
+const user = encodeURIComponent(process.env.MONGODB_USER);
+const pass = encodeURIComponent(process.env.MONGODB_PASS);
+const host = process.env.MONGODB_HOST;
+const db   = process.env.MONGODB_DB || 'plp_bookstore';
+
+const uri = `mongodb+srv://${user}:${pass}@${host}/${db}?retryWrites=true&w=majority`;
 
 // Database and collection names
 const dbName = 'plp_bookstore';
@@ -131,6 +139,126 @@ const books = [
     in_stock: true,
     pages: 342,
     publisher: 'Thomas Cautley Newby'
+  },
+  {
+    title: "The Atlas of AI",
+    author: "Kate Crawford",
+    genre: "Non-fiction",
+    published_year: 2021,
+    price: 18.99,
+    in_stock: true,
+    pages: 256,
+    publisher: "Yale University Press"
+  },
+  {
+    title: "Clean Code",
+    author: "Robert C. Martin",
+    genre: "Programming",
+    published_year: 2008,
+    price: 34.50,
+    in_stock: true,
+    pages: 464,
+    publisher: "Prentice Hall"
+  },
+  {
+    title: "Eloquent JavaScript",
+    author: "Marijn Haverbeke",
+    genre: "Programming",
+    published_year: 2018,
+    price: 25.00,
+    in_stock: true,
+    pages: 472,
+    publisher: "No Starch Press"
+  },
+  {
+    title: "The Silent Patient",
+    author: "Alex Michaelides",
+    genre: "Thriller",
+    published_year: 2019,
+    price: 14.99,
+    in_stock: false,
+    pages: 336,
+    publisher: "Celadon Books"
+  },
+  {
+    title: "Where the Crawdads Sing",
+    author: "Delia Owens",
+    genre: "Fiction",
+    published_year: 2018,
+    price: 15.99,
+    in_stock: true,
+    pages: 368,
+    publisher: "G.P. Putnam's Sons"
+  },
+  {
+    title: "Educated",
+    author: "Tara Westover",
+    genre: "Memoir",
+    published_year: 2018,
+    price: 16.00,
+    in_stock: true,
+    pages: 334,
+    publisher: "Random House"
+  },
+  {
+    title: "The Pragmatic Programmer",
+    author: "Andrew Hunt",
+    genre: "Programming",
+    published_year: 1999,
+    price: 39.99,
+    in_stock: false,
+    pages: 352,
+    publisher: "Addison-Wesley"
+  },
+  {
+    title: "The Midnight Library",
+    author: "Matt Haig",
+    genre: "Fiction",
+    published_year: 2020,
+    price: 13.50,
+    in_stock: true,
+    pages: 304,
+    publisher: "Viking"
+  },
+  {
+    title: "Atomic Habits",
+    author: "James Clear",
+    genre: "Self-help",
+    published_year: 2018,
+    price: 20.00,
+    in_stock: true,
+    pages: 320,
+    publisher: "Avery"
+  },
+  {
+    title: "Dune",
+    author: "Frank Herbert",
+    genre: "Science Fiction",
+    published_year: 1965,
+    price: 12.99,
+    in_stock: true,
+    pages: 412,
+    publisher: "Chilton Books"
+  },
+  {
+    title: "Children of Time",
+    author: "Adrian Tchaikovsky",
+    genre: "Science Fiction",
+    published_year: 2015,
+    price: 11.50,
+    in_stock: false,
+    pages: 640,
+    publisher: "Orbit"
+  },
+  {
+    title: "Deep Work",
+    author: "Cal Newport",
+    genre: "Productivity",
+    published_year: 2016,
+    price: 17.00,
+    in_stock: true,
+    pages: 304,
+    publisher: "Grand Central Publishing"
   }
 ];
 
@@ -196,3 +324,4 @@ insertBooks().catch(console.error);
  * 5. Find in-stock books:
  *    db.books.find({ in_stock: true })
  */ 
+
