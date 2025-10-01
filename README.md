@@ -18,6 +18,9 @@ npm init -y
 
 # Install the MongoDB Node.js driver
 npm install mongodb
+
+# To run:
+node insert_books.js 
 ```
 
 ## Assignment Overview
